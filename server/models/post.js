@@ -1,11 +1,25 @@
-var mongoose     = require('mongoose');
-var Schema       = mongoose.Schema;
+import mongoose from 'mongoose'
 
-var PostSchema   = new Schema({
-  title: String,
-  author: { type: String, default: 'Admin' },
-  description: String,
-  date: { type: Date, default: Date.now }
+const Schema = mongoose.Schema
+
+const PostSchema = new Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  author: {
+    type: String,
+    required: true,
+    default: 'CW Poster'
+  },
+  description: {
+    type: String
+  },
+  date: {
+    type: Date,
+    required: true,
+    default: Date.now
+  }
 });
 
 module.exports = mongoose.model('Post', PostSchema);
