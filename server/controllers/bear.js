@@ -52,7 +52,7 @@ module.exports = {
   },
 
   deleteBear: (req, res) => {
-    Bear.remove({ _id: req.params.bear_id }, (err, bear) => {
+    Bear.remove({ _id: req.params.bearId }, (err, bear) => {
       if (err) {
         res.send(err)
       }
