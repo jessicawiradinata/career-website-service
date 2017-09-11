@@ -1,5 +1,4 @@
 import Post from '../models/post'
-import { ObjectID } from 'mongodb'
 
 module.exports = {
 
