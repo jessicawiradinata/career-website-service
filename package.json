@@ -8,6 +8,7 @@
     "start": "nodemon server.js --exec babel-node --presets es2015,stage-2"
   },
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "~1.0.1",
     "express": "~4.0.0",
     "mongoose": "^4.1.5"
