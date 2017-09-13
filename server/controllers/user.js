@@ -9,20 +9,12 @@ module.exports = {
       password: req.body.password,
       name: req.body.name
     })
-
-    bcrypt.hash(user.password, 10, (err, hash) => {
+      
+    user.save((err) => {
       if (err) {
         res.send(err)
       }
-
-      user.password = hash
-      
-      user.save((err) => {
-        if (err) {
-          res.send(err)
-        }
-        res.json({ message: 'User created!' })
-      })
+      res.json({ message: 'User created!' })
     })
   },
 
@@ -49,22 +41,16 @@ module.exports = {
       if (err) {
         res.send(err)
       }
+
+      user.email = req.body.email
+      user.password = req.body.password
+      user.name = req.body.name
       
-      bcrypt.hash(req.body.password, 10, (err, hash) => {
+      user.save((err) => {
         if (err) {
           res.send(err)
         }
-
-        user.email = req.body.email
-        user.password = hash
-        user.name = req.body.name
-        
-        user.save((err) => {
-          if (err) {
-            res.send(err)
-          }
-          res.json({ message: 'User updated!' })
-        })
+        res.json({ message: 'User updated!' })
       })
     })
   },
