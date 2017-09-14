@@ -1,6 +1,6 @@
 import express from 'express'
 import { createUser, getUsers, getUser, updateUser, deleteUser } from '../controllers/user'
-import validation from '../../config/validation'
+import validation from '../../config/validations/user'
 import validate from 'express-validation'
 
 const router = express.Router()
