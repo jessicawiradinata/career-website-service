@@ -7,10 +7,9 @@ const PostSchema = new Schema({
     type: String,
     required: true
   },
-  author: {
+  authorId: {
     type: String,
     required: true,
-    default: 'CW Poster'
   },
   description: {
     type: String

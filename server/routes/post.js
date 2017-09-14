@@ -5,9 +5,11 @@ const router = express.Router()
 
 router.route('/')
 
-.get(getPosts)
-
 .post(createPost)
+
+router.route('/users/:userId')
+
+.get(getPosts)
 
 router.route('/:postId')
 

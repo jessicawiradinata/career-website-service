@@ -5,6 +5,7 @@ module.exports = {
   createPost: (req, res) => {
     const post = new Post({
       title: req.body.title,
+      authorId: req.body.authorId,
       description: req.body.description
     })
 
@@ -17,7 +18,7 @@ module.exports = {
   },
 
   getPosts: (req, res) => {
-    Post.find({}).exec((err, posts) => {
+    Post.find({ authorId: req.params.userId }).exec((err, posts) => {
       if (err) {
         res.send(err)
       }
