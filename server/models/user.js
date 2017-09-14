@@ -12,7 +12,6 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true,
-    select: false
   },
   name: {
     type: String,
@@ -39,11 +38,13 @@ UserSchema.pre('save', function(next) {
         next()
       })
     })
+  } else {
+    return next()
   }
 })
 
 UserSchema.methods.validPassword = function(pw, cb) {
-  bcrypt.compare(pw, this.password, (err, isValid) => {
+  bcrypt.compare(pw, this.password, function(err, isValid) {
     if (err) {
       return cb(err)
     }

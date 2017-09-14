@@ -1,12 +1,14 @@
 import express from 'express'
 import postRoutes from './post'
 import userRoutes from './user'
+import authRoutes from './auth'
 
 const router = express.Router()
 
-//mount post routes at /posts
 router.use('/posts', postRoutes)
 
 router.use('/users', userRoutes)
+
+router.use('/auth', authRoutes)
 
 export default router
