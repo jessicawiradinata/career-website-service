@@ -11,6 +11,8 @@
     "bcrypt": "^1.0.3",
     "body-parser": "~1.0.1",
     "express": "~4.0.0",
+    "express-validation": "^1.0.2",
+    "joi": "^10.6.0",
     "jsonwebtoken": "^8.0.1",
     "mongoose": "^4.1.5"
   },
