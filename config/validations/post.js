@@ -10,7 +10,7 @@ export default {
     }
   },
 
-  getPosts: {
+  getUserPosts: {
     params: {
       userId: Joi.string().hex().required()
     }

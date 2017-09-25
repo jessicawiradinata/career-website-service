@@ -18,6 +18,15 @@ module.exports = {
   },
 
   getPosts: (req, res) => {
+    Post.find({ }).exec((err, posts) => {
+      if (err) {
+        res.send(err)
+      }
+      res.json(posts)
+    })
+  },
+
+  getUserPosts: (req, res) => {
     Post.find({ authorId: req.params.userId }).exec((err, posts) => {
       if (err) {
         res.send(err)
