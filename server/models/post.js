@@ -11,10 +11,23 @@ const PostSchema = new Schema({
     type: String,
     required: true,
   },
+  remuneration: {
+    type: String,
+  },
+  workType: {
+    type: String,
+  },
+  closingDate: {
+    type: Date,
+    required: true
+  },
   description: {
     type: String
   },
-  date: {
+  howToApply: {
+    type: String
+  },
+  createdAt: {
     type: Date,
     required: true,
     default: Date.now

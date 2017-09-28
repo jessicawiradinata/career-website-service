@@ -6,7 +6,11 @@ module.exports = {
     const post = new Post({
       title: req.body.title,
       authorId: req.body.authorId,
-      description: req.body.description
+      remuneration: req.body.remuneration,
+      workType: req.body.workType,
+      closingDate: req.body.closingDate,
+      description: req.body.description,
+      howToApply: req.body.howToApply
     })
 
     post.save((err) => {
@@ -50,8 +54,12 @@ module.exports = {
         res.send(err)
       }
 
-      post.title = req.body.title
-      post.description = req.body.description
+      post.title = req.body.title,
+      post.remuneration = req.body.remuneration,
+      post.workType = req.body.workType,
+      post.closingDate = req.body.closingDate,
+      post.description = req.body.description,
+      post.howToApply = req.body.howToApply
 
       post.save((err) => {
         if (err) {
