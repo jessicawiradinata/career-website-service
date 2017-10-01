@@ -14,6 +14,9 @@ const PostSchema = new Schema({
   remuneration: {
     type: String,
   },
+  location: {
+    type: String,
+  },
   workType: {
     type: String,
   },
@@ -23,6 +26,9 @@ const PostSchema = new Schema({
   },
   description: {
     type: String
+  },
+  skills: {
+    type: [String]
   },
   howToApply: {
     type: String

@@ -15,7 +15,6 @@ module.exports = {
       }
       else {
         user.validPassword(req.body.password, (err, isValid) => {
-          console.log(user)
           if (isValid && !err) {
             const token = jwt.sign({ data: user }, config.auth.secret, { expiresIn: '2 days' })
             res.json({ message: 'Authentication successful.', id: user.id, token })

@@ -7,9 +7,11 @@ module.exports = {
       title: req.body.title,
       authorId: req.body.authorId,
       remuneration: req.body.remuneration,
+      location: req.body.location,
       workType: req.body.workType,
       closingDate: req.body.closingDate,
       description: req.body.description,
+      skills: req.body.skills,
       howToApply: req.body.howToApply
     })
 
@@ -56,9 +58,11 @@ module.exports = {
 
       post.title = req.body.title,
       post.remuneration = req.body.remuneration,
+      post.location = req.body.location,
       post.workType = req.body.workType,
       post.closingDate = req.body.closingDate,
       post.description = req.body.description,
+      post.skills = req.body.skills,
       post.howToApply = req.body.howToApply
 
       post.save((err) => {
