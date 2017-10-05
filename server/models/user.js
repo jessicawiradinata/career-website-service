@@ -11,10 +11,19 @@ const UserSchema = new Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
   name: {
     type: String,
+    required: true
+  },
+  about: {
+    type: String
+  },
+  isAdmin: {
+    type: Boolean,
+    required: true,
+    default: false
   },
   createdAt: {
     type: Date,
