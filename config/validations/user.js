@@ -5,7 +5,7 @@ export default {
   createUser: {
     body: {
       email: Joi.string().email().required(),
-      password: Joi.string().required(),
+      password: Joi.string().min(8).max(30).regex(/[a-zA-Z0-9]{3,30}/).required(),
       name: Joi.string().alphanum(),
     }
   },
