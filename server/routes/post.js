@@ -1,5 +1,5 @@
 import express from 'express'
-import { createPost, getPosts, getUserPosts, getPost, updatePost, deletePost } from '../controllers/post'
+import { createPost, getPosts, getUserPosts, getPost, updatePost, deletePost, lockPost } from '../controllers/post'
 import validation from '../../config/validations/post'
 import validate from 'express-validation'
 
@@ -19,8 +19,12 @@ router.route('/:postId')
 
 .get(validate(validation.getPost), getPost)
 
-.put(validate(validation.updatePost), updatePost)
+.put(updatePost)
 
 .delete(validate(validation.deletePost), deletePost)
+
+router.route('/lock/:postId')
+
+.put(lockPost)
 
 export default router

@@ -74,6 +74,23 @@ module.exports = {
     })
   },
 
+  lockPost: (req, res) => {
+    Post.findById({ _id: req.params.postId }, (err, post) => {
+      if (err) {
+        res.send(err)
+      }
+
+      post.isLocked = req.body.isLocked
+
+      post.save((err) => {
+        if (err) {
+          res.send(err)
+        }
+        res.json({ message: 'Post updated!' })
+      })
+    })
+  },
+
   deletePost: (req, res) => {
     Post.remove({ _id: req.params.postId }, (err, post) => {
       if (err) {

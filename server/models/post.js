@@ -37,6 +37,11 @@ const PostSchema = new Schema({
     type: Date,
     required: true,
     default: Date.now
+  },
+  isLocked: {
+    type: Boolean,
+    required: true,
+    default: false,
   }
 });
 

@@ -27,7 +27,7 @@ export default {
       postId: Joi.string().hex().required()
     },
     body: {
-      title: Joi.string().required(),
+      title: Joi.string(),
       description: Joi.string()
     }
   },
