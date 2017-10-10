@@ -3,7 +3,9 @@ import bodyParser from 'body-parser'
 import mongoose from 'mongoose'
 import IndexRouter from './server/routes/index'
 import cors from 'cors'
+import dotenv from 'dotenv'
 
+dotenv.config()
 const app = express()
 
 // configure app to use bodyParser()
@@ -16,7 +18,7 @@ const port = process.env.PORT || 8080
 
 const router = express.Router()
 // connect to the mongo database
-mongoose.connect('mongodb://jessicawiradinata:careerwebsite2017@ds051883.mlab.com:51883/careerwebsite?authMechanism=SCRAM-SHA-1', (err) => {
+mongoose.connect(process.env.MONGO_URI, (err) => {
   
   // middleware to use for all requests
   router.use((req, res, next) => {

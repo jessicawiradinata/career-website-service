@@ -14,7 +14,7 @@ export default {
       // validation for the createUser method body
       email: Joi.string().email().required(),
       password: Joi.string().required(),
-      name: Joi.string().alphanum(),
+      name: Joi.string().required(),
     }
   },
 
