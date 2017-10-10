@@ -5,13 +5,13 @@ import sgTransport from 'nodemailer-sendgrid-transport'
 import randToken from 'rand-token'
 
 /*
-This module contains the method for login that will be called when 
+This module contains the method for login that will be called when
 the Post Login API is used
 */
 module.exports = {
-
+  // find the user, check the email and the password if user is found, generate token
   login: (req, res) => {
-    //getting the user from the email
+    //get the user from the email
     User.findOne({ email: req.body.email }, (err, user) => {
       if (err) {
         throw err
@@ -33,13 +33,15 @@ module.exports = {
       }
     })
   },
-
+  // reset the user password, use token as temporary password, send email to user
   resetPassword: (req, res) => {
+    // find the user using the email from the method body
     User.findOne({ email: req.body.email }, (err, user) => {
+      // if error, send error message
       if (err) {
         res.send(err)
       }
-
+      //get the token and assign as user password, authentication using environment variable
       const token = randToken.uid(8)
       user.password = token
       const options = {
@@ -47,6 +49,7 @@ module.exports = {
           api_key: process.env.SENDGRID_API_KEY
         }
       }
+      // send the temporary password to the user using the smtpTransport
       const smtpTransport = nodemailer.createTransport(sgTransport(options))
       const mailOptions = {
         to: user.email,
@@ -57,9 +60,10 @@ module.exports = {
           `Your new password is ${token}. Please login and change your password.\n\n` +
           'Regards,\n\nCareer Website Team'
       }
-
+      // check if the message succesfully send
       smtpTransport.sendMail(mailOptions, (err) => {
         user.save((err) => {
+          // if error, send error message
           if (err) {
             res.send(err)
           }
