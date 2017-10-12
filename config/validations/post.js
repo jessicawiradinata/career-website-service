@@ -14,7 +14,7 @@ export default {
       // validation for the createPost method body
       title: Joi.string().required(),
       authorId: Joi.string().hex().required(),
-      description: Joi.string()
+      description: Joi.string().allow('')
     }
   },
 
@@ -40,7 +40,7 @@ export default {
     body: {
       // validation for the updatePost method body
       title: Joi.string().required(),
-      description: Joi.string()
+      description: Joi.string().allow('')
     }
   },
 
