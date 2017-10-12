@@ -92,7 +92,7 @@ module.exports = {
             })
           }
           else {
-            res.json({ message: 'Authentication failed.'})
+            res.json(err)
           }
         })
       }
