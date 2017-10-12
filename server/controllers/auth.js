@@ -71,5 +71,31 @@ module.exports = {
         })
       })
     })
+  },
+
+  changePassword: (req, res) => {
+    User.findOne({ email: req.body.email }, (err, user) => {
+      if (err) {
+        res.send(err)
+      }
+      if (!user) {
+        res.send({ message: 'User not found' })
+      } else {
+        user.validPassword(req.body.password, (err, isValid) => {
+          if (isValid && !err) {
+            user.password = req.body.newPassword
+            user.save((err) => {
+              if (err) {
+                res.send(err)
+              }
+              res.json({ message: 'Password successfully changed!' })
+            })
+          }
+          else {
+            res.json({ message: 'Authentication failed.'})
+          }
+        })
+      }
+    })
   }
 }
