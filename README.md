@@ -1,5 +1,5 @@
 # Career Website API
-This repository contains the API for the Career Website. The front end can be found in this repository: https://github.com/jessicawiradinata/career-website/tree/master
+This repository contains the API for the Career Website. This server is secured using environment variable. The front end can be found in this repository: https://github.com/jessicawiradinata/career-website/tree/master
 
 ## Getting Started
 #### 1. Clone this repository using the command in terminal:
@@ -10,11 +10,15 @@ git clone https://github.com/jessicawiradinata/career-website-service.git
 ```
 cd career-website-service
 ```
-#### 3. Install the required node modules using command:
+#### 2. Change the current directory to the file repository using command:
+```
+copy the .env file into the project directory
+```
+#### 4. Install the required node modules using command:
 ```
 npm install
 ```
-#### 4. Run the project on the server using command:
+#### 5. Run the project on the server using command:
  ```
  npm start
  ```
@@ -116,8 +120,22 @@ Updates the specified post using post ID as the key
 * #### DELETE 'api/users/:postId'\
 Delete the specified post using the post ID as the key
 
-### Login
+### Auth
 * #### POST 'api/login/'
+{
+
+     email: String
+     
+     password: String
+ 
+}
+* #### POST 'api/resetpassword/'
+{
+
+     email: String
+ 
+}
+* #### POST 'api/changepassword/'
 {
 
      email: String
