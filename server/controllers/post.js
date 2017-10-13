@@ -1,18 +1,17 @@
 import Post from '../models/post'
 
 /*
-This module contains the method for Job Post that will be called when 
+This module contains the method for Job Post that will be called when
 the API method related to post is used
 */
 module.exports = {
-  /* 
-  This method is used to create a new post, will be called when 
-  Post Job Post API method is called
+  /*
+  create a new post, will be called when Post Job Post API method is called
   */
   createPost: (req, res) => {
-    // creating the new post with the data from the message body
+    // create the new post with the data from the message body
     const post = new Post({
-      //getting the message body
+      //get the message body
       title: req.body.title,
       authorId: req.body.authorId,
       remuneration: req.body.remuneration,
@@ -23,7 +22,7 @@ module.exports = {
       skills: req.body.skills,
       howToApply: req.body.howToApply
     })
-    // saving the user into the database
+    // save the user into the database
     post.save((err) => {
       if (err) {
         res.send(err)
@@ -31,9 +30,8 @@ module.exports = {
       res.json({ message: 'Post created!' })
     })
   },
-  /* 
-  This method is used to get all the Job Posts in the application, 
-  will be called when Get Job Post API method is called
+  /*
+  get all the Job Posts in the application, will be called when Get Job Post API method is called
   */
   getPosts: (req, res) => {
     Post.find({ }).exec((err, posts) => {
@@ -43,9 +41,8 @@ module.exports = {
       res.json(posts)
     })
   },
-  /* 
-  This method is used to get all the post by particular user in the application, 
-  specified with the userId in the parameter, 
+  /*
+  get all the post by particular user in the application, specified with the userId in the parameter,
   will be called when Get User Job Post API method is called
   */
   getUserPosts: (req, res) => {
@@ -56,9 +53,8 @@ module.exports = {
       res.json(posts)
     })
   },
-  /* 
-  This method is used to get one particular post, 
-  specified with the postId in the API method parameter, 
+  /*
+  get one particular post, specified with the postId in the API method parameter,
   will be called when Get Job Post API method is called
   */
   getPost: (req, res) => {
@@ -69,9 +65,8 @@ module.exports = {
       res.json(post)
     })
   },
-  /* 
-  This method is used to update one particular post,
-  specified with the postId in the API method parameter, 
+  /*
+  update one particular post, specified with the postId in the API method parameter,
   will be called when Update Job Post API method is called
   */
   updatePost: (req, res) => {
@@ -89,7 +84,7 @@ module.exports = {
       post.description = req.body.description,
       post.skills = req.body.skills,
       post.howToApply = req.body.howToApply
-      // saving into the database
+      // save into the database
       post.save((err) => {
         if (err) {
           res.send(err)
@@ -98,13 +93,12 @@ module.exports = {
       })
     })
   },
-  /* 
-  This method is used to delete one particular post,
-  specified with the postId in the API method parameter, 
+  /*
+  delete one particular post, specified with the postId in the API method parameter,
   will be called when Detele Job Post API method is called
   */
   deletePost: (req, res) => {
-    // finding the post that want to be deleted
+    // find the post that want to be deleted
     Post.remove({ _id: req.params.postId }, (err, post) => {
       if (err) {
         res.send(err)

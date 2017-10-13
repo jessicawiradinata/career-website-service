@@ -4,7 +4,7 @@ import Joi from 'joi'
 This is the validation of the data on the server using joi.
 It is done so that the data inserted into the db is in correct format.
 
-This particular validation is for method body and parameeter for all 
+This particular validation is for method body and parameter for all
 the API method related to the user.
 */
 export default {
@@ -13,8 +13,8 @@ export default {
     body: {
       // validation for the createUser method body
       email: Joi.string().email().required(),
-      password: Joi.string().min(8).max(30).regex(/[a-zA-Z0-9]{3,30}/).required(),
-      name: Joi.string().alphanum(),
+      password: Joi.string().required(),
+      name: Joi.string().required(),
     }
   },
 

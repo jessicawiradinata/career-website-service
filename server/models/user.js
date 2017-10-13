@@ -1,16 +1,14 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 /*
-This is the schema of the job post for the application using mongoose. 
-
+This is the schema of the job post for the application using mongoose.
 */
 
-// creating Schema variable from the mongose.schema
+// create Schema variable from the mongose.schema
 const Schema = mongoose.Schema
 
-/* The Userscema using the mongodb schema, 
-the required field is required because it is important information
-that a user must have
+/*
+The Userschema using the mongodb schema, required field indicates importance of the attribute
 */
 const UserSchema = new Schema({
   email: {
@@ -41,19 +39,16 @@ const UserSchema = new Schema({
   }
 })
 
-/*
-This method is used to hash the user password through salted password hashing
-using bcrypt library for security reason
-*/
+// hash the password through salted password hashing using bcrypt library for security
 UserSchema.pre('save', function(next) {
   const user = this
   if (this.isModified('password')) {
-    //generating the salt 
+    //generate the salt
     bcrypt.genSalt(10, (err, salt) => {
       if (err) {
         return next(err)
       }
-      //hashing the password using salt
+      //hash the password using salt
       bcrypt.hash(user.password, salt, (err, hash) => {
         if (err) {
           return next(err)
@@ -68,9 +63,8 @@ UserSchema.pre('save', function(next) {
   }
 })
 
-/*
-This method is used to check the hashed password if thats is the correct one
-*/
+
+//check the hashed password if thats is the correct one
 UserSchema.methods.validPassword = function(pw, cb) {
   //check the password using the compare method of bcrypt
   bcrypt.compare(pw, this.password, function(err, isValid) {
@@ -80,5 +74,5 @@ UserSchema.methods.validPassword = function(pw, cb) {
     cb(null, isValid)
   })
 }
-
+//Export the schema as User to be used by other component
 module.exports = mongoose.model('User', UserSchema);

@@ -4,7 +4,7 @@ import Joi from 'joi'
 This is the validation of the data on the server using joi.
 It is done so that the data inserted into the db is in correct format.
 
-This particular validation is for method body and parameeter for all 
+This particular validation is for method body and parameter for all
 the API method related to the job post.
 */
 export default {
@@ -14,7 +14,7 @@ export default {
       // validation for the createPost method body
       title: Joi.string().required(),
       authorId: Joi.string().hex().required(),
-      description: Joi.string()
+      description: Joi.string().allow('')
     }
   },
 
@@ -40,7 +40,7 @@ export default {
     body: {
       // validation for the updatePost method body
       title: Joi.string().required(),
-      description: Joi.string()
+      description: Joi.string().allow('')
     }
   },
 

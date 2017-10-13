@@ -1,12 +1,20 @@
 import express from 'express'
-import { login } from '../controllers/auth'
+import { login, resetPassword, changePassword } from '../controllers/auth'
 import validation from '../../config/validations/auth'
 import validate from 'express-validation'
 
 const router = express.Router()
-// if the api/auth/login
+// if api/auth/login
 router.route('/login')
-//using post method and calling the login method in the auth.js controller
+//use post method and call login method in the auth.js controller
 .post(validate(validation.login), login)
+// if api/auth/resetpassword
+router.route('/resetpassword')
+//use post method and call login method in the auth.js controller
+.post(resetPassword)
+
+router.route('/changepassword')
+
+.post(changePassword)
 
 export default router

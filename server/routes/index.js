@@ -5,7 +5,7 @@ import express from 'express'
 import postRoutes from './post'
 import userRoutes from './user'
 import authRoutes from './auth'
-// using the express router
+// use the express router
 const router = express.Router()
 // if api/posts, route to postRoutes (router/post.js)
 router.use('/posts', postRoutes)
