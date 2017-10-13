@@ -8,13 +8,16 @@ const router = express.Router()
 router.route('/login')
 //use post method and call login method in the auth.js controller
 .post(validate(validation.login), login)
+
+
 // if api/auth/resetpassword
 router.route('/resetpassword')
-//use post method and call login method in the auth.js controller
-.post(resetPassword)
+//use post method and call resetpassword method in the auth.js controller
+.post(validate(validation.resetPassword), resetPassword)
 
+// if api/auth/changepassword
 router.route('/changepassword')
-
-.post(changePassword)
+//use post method and call changepassword method in the auth.js controller
+.post(validate(validation.changePassword), changePassword)
 
 export default router
