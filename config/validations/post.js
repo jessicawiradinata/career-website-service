@@ -14,7 +14,14 @@ export default {
       // validation for the createPost method body
       title: Joi.string().required(),
       authorId: Joi.string().hex().required(),
-      description: Joi.string().allow('')
+      remuneration: Joi.string().allow(''),
+      location: Joi.string().allow(''),
+      workType: Joi.string().allow(''),
+      closingDate: Joi.date().required(),
+      description: Joi.string().allow(''),
+      skills: Joi.string().allow(''),
+      howToApply: Joi.string().allow(''),
+      createdAt: Joi.date().required()
     }
   },
 
@@ -40,7 +47,14 @@ export default {
     body: {
       // validation for the updatePost method body
       title: Joi.string().required(),
-      description: Joi.string().allow('')
+      remuneration: Joi.string().allow(''),
+      location: Joi.string().allow(''),
+      workType: Joi.string().allow(''),
+      closingDate: Joi.date().required(),
+      description: Joi.string().allow(''),
+      skills: Joi.string().allow(''),
+      howToApply: Joi.string().allow(''),
+      createdAt: Joi.date().required()
     }
   },
 
