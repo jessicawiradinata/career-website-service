@@ -19,9 +19,7 @@ export default {
       workType: Joi.string().allow(''),
       closingDate: Joi.date().required(),
       description: Joi.string().allow(''),
-      skills: Joi.string().allow(''),
-      howToApply: Joi.string().allow(''),
-      createdAt: Joi.date().required()
+      howToApply: Joi.string().allow('')
     }
   },
 
@@ -52,9 +50,7 @@ export default {
       workType: Joi.string().allow(''),
       closingDate: Joi.date().required(),
       description: Joi.string().allow(''),
-      skills: Joi.string().allow(''),
-      howToApply: Joi.string().allow(''),
-      createdAt: Joi.date().required()
+      howToApply: Joi.string().allow('')
     }
   },
 
