@@ -6,11 +6,8 @@ This repository contains the API for the Career Website. This server is secured 
 ```
 git clone https://github.com/jessicawiradinata/career-website-service.git
 ```
-#### 2. Change the current directory to the file repository using command:
-```
-cd career-website-service
-```
-#### 2. Change the current directory to the file repository using command:
+#### 2. Copy the .env to the project directory
+#### 3. Change the current directory to the file repository using command:
 ```
 copy the .env file into the project directory
 ```
