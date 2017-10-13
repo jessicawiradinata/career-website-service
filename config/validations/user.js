@@ -34,6 +34,13 @@ export default {
     }
   },
 
+  updateUserName: {
+    body: {
+      //validation for the updateUserName method body
+      name: Joi.string().alphanum(),
+    }
+  },
+
   deleteUser: {
     params: {
       //validation for the userId param for the deleteUser method
