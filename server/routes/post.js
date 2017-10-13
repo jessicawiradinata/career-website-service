@@ -1,6 +1,6 @@
 import express from 'express'
 // importing the method from the post controller
-import { createPost, getPosts, getUserPosts, getPost, updatePost, deletePost } from '../controllers/post'
+import { createPost, getPosts, getUserPosts, getPost, updatePost, deletePost, searchLocation } from '../controllers/post'
 import validation from '../../config/validations/post'
 import validate from 'express-validation'
 
@@ -25,5 +25,9 @@ router.route('/:postId')
 .put(validate(validation.updatePost), updatePost)
 // Use DELETE method to delete the post specified by postId by calling the deletePost method
 .delete(validate(validation.deletePost), deletePost)
+
+router.route('/searchLocation/:searchText')
+
+.get(searchLocation)
 
 export default router

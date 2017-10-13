@@ -1,4 +1,5 @@
 import Post from '../models/post'
+import request from 'request'
 
 /*
 This module contains the method for Job Post that will be called when
@@ -105,6 +106,21 @@ module.exports = {
       }
       res.json({ message: 'Successfully deleted' })
     })
-  }
+  },
 
+  /**
+   * Requests search location suggestions from the Google Maps Places Autocomplete public service
+   * @param searchText text to be searched
+   */
+  searchLocation: (req, res) => {
+    const searchText = req.params.searchText
+    const api = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?'
+    const apiKey = process.env.GOOGLE_PLACES_API_KEY
+    request.get(`${api}input=${searchText}&types=geocode&key=${apiKey}`, (err, response, body) => {
+      if (err) {
+        res.send(err)
+      }
+      res.json(JSON.parse(body))
+    })
+  }
 }
