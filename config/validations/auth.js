@@ -1,26 +1,33 @@
+/**
+ * This is the validation of the data on the server using joi.
+ * It is done so that the data inserted into the db is in correct format.
+ * 
+ * This particular validation is for method body and parameter for all the Ath API method.
+ */
 import Joi from 'joi'
 
-/*
-This is the validation of the data on the server using joi
-it is done so that the data inserted into the db is in correct format
-This particular validation is for the authentication which is login method
-it is to make sure that the email and password is in correct format
-*/
 export default {
-
+  /**
+   * the validation of the login method body
+   */
   login: {
     body: {
-      //the validation of the email and password format
+      //
       email: Joi.string().email().required(),
       password: Joi.string().required()
     }
   },
+  /**
+   * validaation for resetPassword method body
+   */
   resetPassword:{
     body:{
       email: Joi.string().email().required(),
     }
   },
-
+  /**
+   * validation for changePassword method bodu
+   */
   changePassword:{
     body:{
       email: Joi.string().email().required(),
