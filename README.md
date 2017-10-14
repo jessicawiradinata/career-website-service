@@ -9,7 +9,7 @@ git clone https://github.com/jessicawiradinata/career-website-service.git
 #### 2. Copy the .env to the project directory
 #### 3. Change the current directory to the file repository using command:
 ```
-copy the .env file into the project directory
+cd career-website-service
 ```
 #### 4. Install the required node modules using command:
 ```
@@ -19,6 +19,7 @@ npm install
  ```
  npm start
  ```
+ #### Note: This installation guide is only for the web service, if you wish to use both web service and the front end, you can see the installation guide in the front end repository.
 ## APIs methods
 
 ### User
@@ -38,7 +39,7 @@ Gets all registered users
 
 Creates a new registered user
 * #### GET '/api/users/:userId'
-Gets the specified user using user ID as the key
+Gets the specified user using userId in the parameter as the key
 * #### PUT 'api/users/:userId'
 {
 
@@ -51,9 +52,9 @@ Gets the specified user using user ID as the key
      created at: Date
 }
 
-Updates the specified user using user ID as the key
+Updates the specified user using userId in the parameter as the key
 * #### DELETE 'api/users/:userId'
-Delete the specified user using the user ID as the key
+Delete the specified user using userId in the parameterD as the key
 
 ### Post
 * #### GET 'api/posts/'
@@ -85,9 +86,9 @@ Gets all the post created in the application
 
 Create a new post in the application
 * #### GET 'api/posts/users/:userId'
-Gets all the post that is owned by the specified user using the user ID as the key
+Gets all the post that is owned by the specified user using userId in the parameter as the key
 * #### GET 'api/posts/:postId'
-Gets the specified post using post ID as the key
+Gets the specified post using postId in the parameter as the key
 * #### PUT 'api/users/:postId'
 
 {
@@ -113,9 +114,9 @@ Gets the specified post using post ID as the key
      createdAt: Date
 }
 
-Updates the specified post using post ID as the key
+Updates the specified post using postId in the parameter as the key
 * #### DELETE 'api/users/:postId'\
-Delete the specified post using the post ID as the key
+Delete the specified post using the postId in the parameter as the key
 
 ### Auth
 * #### POST 'api/login/'
@@ -152,6 +153,10 @@ Check the username and password and login
      password: String
  
      name: String
+     
+     about: String
+     
+     isAdmin: Boolean
  
      created at: Date
  }
