@@ -14,6 +14,19 @@ export default {
       email: Joi.string().email().required(),
       password: Joi.string().required()
     }
+  },
+  resetPassword:{
+    body:{
+      email: Joi.string().email().required(),
+    }
+  },
+
+  changePassword:{
+    body:{
+      email: Joi.string().email().required(),
+      password: Joi.string().required()
+    }
   }
+
 
 }
