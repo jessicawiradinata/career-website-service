@@ -1,3 +1,8 @@
+/**
+ * router for the auth web service and used when /api/auth is used
+ * call method from the controllers based on the path
+ * use joi validation to validate the method body
+ */
 import express from 'express'
 import { login, resetPassword, changePassword } from '../controllers/auth'
 import validation from '../../config/validations/auth'
