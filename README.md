@@ -1,5 +1,24 @@
 # Career Website API
-This repository contains the API for the Career Website. This server is secured using environment variable. The front end can be found in this repository: https://github.com/jessicawiradinata/career-website/tree/master
+This repository contains the API for the Career Website. Career Website is a job vacancies web application specifically designed for internship job opportunities. This project is divided in two, the first one is the Web service which is located in this repository and the front end that can be found in this repository: https://github.com/jessicawiradinata/career-website/tree/master. This server is secured using environment variable. So, in order to run this server, .env file that contains the sensitive information to the database account will be needed. This project also use Google Maps API to autocomplete the location for the Job Post.
+
+## Author
+This project is created by Jessica (jessicawiradinata), Kevin (KevinKostnerr), and Stefanus Yoshua (syoshua) which are the students of UTS.
+
+## Coding Style
+- Braces are required for all control structures
+- Variables are using camelCase
+- Module namespaces may never be named as a direct child of another module's namespace.
+- Filenames should be all lowercase
+- Require statements, grouped together immediately following the module declaration
+- Use four spaces for indenting
+- One statement per line
+- Have a comment on every function that describes its purpose
+- Column limit of 80 characters
+- Don't abbreviate local variable
+- Ordinary string literals are delimited with single quotes ('), rather than double quotes (").
+- An empty block or block-like construct may be closed immediately after it is opened, with no characters, space, or line break in between (i.e. {}), unless it is a part of a multi-block statement
+- Every statement must be terminated with a semicolon.
+- Prefer to put all function arguments on the same line as the function name. If doing so would exceed the 80-column limit, the arguments must be line-wrapped in a readable way.
 
 ## Getting Started
 #### 1. Clone this repository using the command in terminal:
@@ -19,7 +38,8 @@ npm install
  ```
  npm start
  ```
- #### Note: This installation guide is only for the web service, if you wish to use both web service and the front end, you can see the installation guide in the front end repository.
+ #### Note: This installation guide is only for the web service, if you wish to use both web service and the front end, you can see the installation guide for the front end side in the front end repository.
+ 
 ## APIs methods
 
 ### User
@@ -185,18 +205,3 @@ Check the username and password and login
      createdAt: Date
 }
 
-## Coding Style
-- Braces are required for all control structures
-- Variables are using camelCase
-- Module namespaces may never be named as a direct child of another module's namespace.
-- Filenames should be all lowercase
-- Require statements, grouped together immediately following the module declaration
-- Use four spaces for indenting
-- One statement per line
-- Have a comment on every function that describes its purpose
-- Column limit of 80 characters
-- Don't abbreviate local variable
-- Ordinary string literals are delimited with single quotes ('), rather than double quotes (").
-- An empty block or block-like construct may be closed immediately after it is opened, with no characters, space, or line break in between (i.e. {}), unless it is a part of a multi-block statement
-- Every statement must be terminated with a semicolon.
-- Prefer to put all function arguments on the same line as the function name. If doing so would exceed the 80-column limit, the arguments must be line-wrapped in a readable way.
