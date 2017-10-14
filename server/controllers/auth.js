@@ -4,12 +4,14 @@ import nodemailer from 'nodemailer'
 import sgTransport from 'nodemailer-sendgrid-transport'
 import randToken from 'rand-token'
 
-/*
-This module contains the method for login that will be called when
-the Post Login API is used
-*/
+/**
+ * Collection of methods for auth that will be called when the Auth API is used
+ */
 module.exports = {
-  // find the user, check the email and the password if user is found, generate token
+
+  /**
+   * find the user, check the email and the password if user is found, generate token
+   */ 
   login: (req, res) => {
     //get the user from the email
     User.findOne({ email: req.body.email }, (err, user) => {
@@ -33,7 +35,10 @@ module.exports = {
       }
     })
   },
-  // reset the user password, use token as temporary password, send email to user
+
+  /**
+   * reset the user password, use token as temporary password, send email to user
+   */ 
   resetPassword: (req, res) => {
     // find the user using the email from the method body
     User.findOne({ email: req.body.email }, (err, user) => {
@@ -73,7 +78,11 @@ module.exports = {
     })
   },
 
+  /**
+   * chenge the user password
+   */
   changePassword: (req, res) => {
+    // find the user
     User.findOne({ email: req.body.email }, (err, user) => {
       if (err) {
         res.send(err)
@@ -81,6 +90,7 @@ module.exports = {
       if (!user) {
         res.send({ message: 'User not found' })
       } else {
+        //check the password, if valid change the password
         user.validPassword(req.body.password, (err, isValid) => {
           if (isValid && !err) {
             user.password = req.body.newPassword

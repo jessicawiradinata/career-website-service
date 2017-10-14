@@ -1,13 +1,13 @@
 import User from '../models/user'
 
-/*
-This module contains the method for User that will be called when
-the API method related to user is used
-*/
+/**
+ * collection of methods for User that will be called when 
+ * the API method related to user is used
+ */
 module.exports = {
-  /*
-  reate a new user, will be called when Post User API method is called
-  */
+  /**
+   * create a new user, will be called when Post User API method is called
+   */
   createUser: (req, res) => {
     // create new user with the data from the message body
     const user = new User({
@@ -24,9 +24,10 @@ module.exports = {
       res.json({ message: 'User created!' })
     })
   },
-  /*
-  get all the Users in the application, will be called when Get Users API method is called
-  */
+
+  /**
+   * get all the Users in the application, will be called when Get Users API method is called
+   */
   getUsers: (req, res) => {
     // get all the users
     User.find({}, (err, users) => {
@@ -36,10 +37,12 @@ module.exports = {
       res.json(users)
     })
   },
-  /*
-  get one user, specified with the userId in the parameter,
-  will be called when Get User API method is called
-  */
+
+  /**
+   * get one user, specified with the userId in the parameter,
+   * will be called when Get User API method is called
+   * @param userId id of the user to find
+   */
   getUser: (req, res) => {
     // find the user in the database using the userId
     User.findById({ _id: req.params.userId }, (err, user) => {
@@ -49,10 +52,12 @@ module.exports = {
       res.json(user)
     })
   },
-  /*
-  update one user, specified with the userId in the API method parameter,
-  will be called when Update User API method is called
-  */
+
+  /**
+   * update one user, specified with the userId in the API method parameter,
+   * will be called when Update User API method is called
+   * @param userId id of the user to be updated
+   */
   updateUser: (req, res) => {
     // find the user in the database using the userId
     User.findById({ _id: req.params.userId }, (err, user) => {
@@ -72,10 +77,12 @@ module.exports = {
       })
     })
   },
-  /*
-  delete one user, specified with the userId in the API method parameter,
-  will be called when Detele User API method is called
-  */
+
+  /**
+   * delete one user, specified with the userId in the API method parameter,
+   * will be called when Detele User API method is called
+   * @param userId id of the user to be deleted
+   */
   deleteUser: (req, res) => {
     // find the user and removing the user from the application
     User.remove({ _id: req.params.userId }, (err, user) => {
