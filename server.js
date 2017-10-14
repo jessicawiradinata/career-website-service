@@ -1,3 +1,6 @@
+/**
+ * The server of this application, contains the configuration of the server
+ */
 import express from 'express'
 import bodyParser from 'body-parser'
 import mongoose from 'mongoose'

@@ -1,14 +1,15 @@
+/**
+ * the schema of the job post for the application using mongoose.
+ */
 import mongoose from 'mongoose'
-/*
-This is the schema of the job post for the application using mongoose.
-*/
 
 // create Schema variable from the mongose.schema
 const Schema = mongoose.Schema
 
-/*
-The Job Post scema using the mongodb schema, required field indicates importance of the attribute
-*/
+/**
+ * The Job Post scema using the mongodb schema, 
+ * required field indicates importance of the attribute
+ */
 const PostSchema = new Schema({
   title: {
     type: String,

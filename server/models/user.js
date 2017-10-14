@@ -1,15 +1,16 @@
+/**
+ * the schema of the User for the application using mongoose.
+ */
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
-/*
-This is the schema of the job post for the application using mongoose.
-*/
 
 // create Schema variable from the mongose.schema
 const Schema = mongoose.Schema
 
-/*
-The Userschema using the mongodb schema, required field indicates importance of the attribute
-*/
+/**
+ * The Userschema using the mongodb schema, 
+ * required field indicates importance of the attribute
+ */
 const UserSchema = new Schema({
   email: {
     type: String,
@@ -39,7 +40,9 @@ const UserSchema = new Schema({
   }
 })
 
-// hash the password through salted password hashing using bcrypt library for security
+/**
+ * hash the password through salted password hashing using bcrypt library for security
+ */ 
 UserSchema.pre('save', function(next) {
   const user = this
   if (this.isModified('password')) {
@@ -63,8 +66,9 @@ UserSchema.pre('save', function(next) {
   }
 })
 
-
-//check the hashed password if thats is the correct one
+/**
+ * check the hashed password if thats is the correct one
+ */
 UserSchema.methods.validPassword = function(pw, cb) {
   //check the password using the compare method of bcrypt
   bcrypt.compare(pw, this.password, function(err, isValid) {
