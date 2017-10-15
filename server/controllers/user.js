@@ -78,6 +78,28 @@ module.exports = {
     })
   },
 
+  /*
+  Update user's name, specified with the userId in the API method parameter,
+  will be called when update User Name API method is called
+  */
+  updateUserName: (req, res) => {
+    // find the user in the database using the userId
+    User.findById({ _id: req.params.userId}, (err, user) => {
+      if (err) {
+        res.send(err)
+      }
+      // replace the name of the user with a new name
+      user.name = req.body.name
+      // save it into database
+      user.save((err) => {
+        if (err) {
+          res.send(err)
+        }
+        res.json({ message: 'User name updated!' })
+      })
+    })
+  },
+  
   /**
    * delete one user, specified with the userId in the API method parameter,
    * will be called when Detele User API method is called
