@@ -1,13 +1,18 @@
+/**
+ * A collection of server methods to handle users
+ */
 import User from '../models/user'
 import jwt from 'jsonwebtoken'
 
-/**
- * collection of methods for User that will be called when 
- * the API method related to user is used
- */
 module.exports = {
+
   /**
-   * create a new user, will be called when Post User API method is called
+   * Creates a new user
+   * @property {string} req.body.email new user's email
+   * @property {string} req.body.password new user's password
+   * @property {string} req.body.name new user's name
+   * @return {boolean} success - true if password create user is successful, false otherwise
+   * @return {boolean} isExist - true if user with the specified email already exists
    */
   createUser: (req, res) => {
     const user = new User({
@@ -15,16 +20,26 @@ module.exports = {
       password: req.body.password,
       name: req.body.name
     })
-    user.save((err) => {
+    User.findById({ _id: req.params.userId }, (err, user) => {
       if (err) {
         res.send(err)
       }
-      res.json({ message: 'User created!' })
+      if (!user) {
+        user.save((err) => {
+          if (err) {
+            res.send({ message: err, success: false, isExist: false })
+          }
+          res.json({ message: 'User created!', success: true, isExist: false })
+        })
+      } else {
+        res.send({ message: 'User already exists', isExist: true })
+      }
     })
   },
 
   /**
-   * get all the Users in the application, will be called when Get Users API method is called
+   * Gets all existing users
+   * @return a colelction of all existing users
    */
   getUsers: (req, res) => {
     User.find({}, (err, users) => {
@@ -36,9 +51,9 @@ module.exports = {
   },
 
   /**
-   * get one user, specified with the userId in the parameter,
-   * will be called when Get User API method is called
-   * @param userId id of the user to find
+   * Gets a user with the specified user ID
+   * @param userId ID of the user to find
+   * @return user with the specified ID
    */
   getUser: (req, res) => {
     User.findById({ _id: req.params.userId }, (err, user) => {
@@ -50,35 +65,13 @@ module.exports = {
   },
 
   /**
-   * update one user, specified with the userId in the API method parameter,
-   * will be called when Update User API method is called
-   * @param userId id of the user to be updated
-   */
-  updateUser: (req, res) => {
-    User.findById({ _id: req.params.userId }, (err, user) => {
-      if (err) {
-        res.send(err)
-      }
-      user.email = req.body.email
-      user.password = req.body.password
-      user.name = req.body.name
-      user.save((err) => {
-        if (err) {
-          res.send(err)
-        }
-        res.json({ message: 'User updated!' })
-      })
-    })
-  },
-
-  /**
    * Updates a user's name
    * @param userId ID of the user to be updated
    * @property {string} req.headers.token user's jwt token
    * @return {boolean} validToken - false if user's token is not valid, null otherwise
    * @return {boolean} success - true if user's name is successfully updated, false otherwise
    */
-  updateUserName: (req, res) => {
+  updateUser: (req, res) => {
     User.findById({ _id: req.params.userId}, (err, user) => {
       if (err) {
         res.send(err)
@@ -102,16 +95,16 @@ module.exports = {
   },
   
   /**
-   * delete one user, specified with the userId in the API method parameter,
-   * will be called when Detele User API method is called
-   * @param userId id of the user to be deleted
+   * Deletes a user with the specified ID
+   * @param userId ID of the user to be deleted
+   * @return {boolean} success - true if delete user is sucessful, false otherwise
    */
   deleteUser: (req, res) => {
     User.remove({ _id: req.params.userId }, (err, user) => {
       if (err) {
-        res.send(err)
+        res.send({ message: err, success: false })
       }
-      res.json({ message: 'Successfully deleted' })
+      res.json({ message: 'Successfully deleted', success: true })
     })
   }
 

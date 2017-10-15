@@ -1,10 +1,9 @@
-import Post from '../models/post'
-import request from 'request'
-import jwt from 'jsonwebtoken'
-
 /**
  * A collection of server methods for to handle posts
  */
+import Post from '../models/post'
+import request from 'request'
+import jwt from 'jsonwebtoken'
 
 module.exports = {
 
@@ -49,7 +48,8 @@ module.exports = {
   },
 
   /**
-   * get all the Job Posts in the application, will be called when Get Job Post API method is called
+   * Gets all existing posts
+   * @return a collection of all existing posts
    */
   getPosts: (req, res) => {
     Post.find({ }).exec((err, posts) => {
@@ -61,23 +61,9 @@ module.exports = {
   },
 
   /**
-   * get all the post by particular user in the application, specified with the userId in the parameter,
-   *  will be called when Get User Job Post API method is called
-   * @param userId th eid of the user for the user posts
-   */
-  getUserPosts: (req, res) => {
-    Post.find({ authorId: req.params.userId }).exec((err, posts) => {
-      if (err) {
-        res.send(err)
-      }
-      res.json(posts)
-    })
-  },
-
-  /**
-   * get one particular post, specified with the postId in the API method parameter,
-   * will be called when Get Job Post API method is called
-   * @param postId the id of the post
+   * Gets a post with the specified ID
+   * @param postId ID of the post
+   * @return post with the specified ID
    */
   getPost: (req, res) => {
     Post.findById({ _id: req.params.postId }, (err, post) => {
@@ -157,6 +143,7 @@ module.exports = {
   /**
    * Requests search location suggestions from the Google Maps Places Autocomplete public service
    * @param searchText text to be searched
+   * @return a collection of location suggestions
    */
   searchLocation: (req, res) => {
     const searchText = req.params.searchText

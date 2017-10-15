@@ -1,7 +1,6 @@
 /**
- * router for the auth web service and used when /api/auth is used
- * call method from the controllers based on the path
- * use joi validation to validate the method body
+ * Specifies all routes for authentication
+ * Validates inputs where necessary
  */
 import express from 'express'
 import { login, resetPassword, changePassword } from '../controllers/auth'
@@ -9,20 +8,27 @@ import validation from '../../config/validations/auth'
 import validate from 'express-validation'
 
 const router = express.Router()
-// if api/auth/login
+
+/**
+ * POST api/auth/login
+ * Logs in the user
+ */
 router.route('/login')
-// use post method and call login method in the auth.js controller
-.post(validate(validation.login), login)
+  .post(validate(validation.login), login)
 
 
-// if api/auth/resetpassword
+/**
+ * POST api/auth/resetpassword
+ * Resets the user's password
+ */
 router.route('/resetpassword')
-//use post method and call resetpassword method in the auth.js controller
-.post(validate(validation.resetPassword), resetPassword)
+  .post(validate(validation.resetPassword), resetPassword)
 
-// if api/auth/changepassword
+/**
+ * POST api/auth/changepassword
+ * Changes a user's password
+ */
 router.route('/changepassword')
-//use post method and call changepassword method in the auth.js controller
-.post(validate(validation.changePassword), changePassword)
+  .post(validate(validation.changePassword), changePassword)
 
 export default router

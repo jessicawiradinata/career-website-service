@@ -1,32 +1,31 @@
+/**
+ * A collection of server methods to handle authentication
+ */
 import User from '../models/user'
 import jwt from 'jsonwebtoken'
 import nodemailer from 'nodemailer'
 import sgTransport from 'nodemailer-sendgrid-transport'
 import randToken from 'rand-token'
 
-/**
- * Collection of methods for auth that will be called when the Auth API is used
- */
 module.exports = {
 
   /**
-   * find the user, check the email and the password if user is found, generate token
+   * Authenticates the user and provides an authentication token
+   * @property {string} req.body.email user's email
+   * @property {string} req.body.password user's password
+   * @return {string} token - authentication token for the user, null if authentication failed
    */ 
   login: (req, res) => {
-    //get the user from the email
     User.findOne({ email: req.body.email }, (err, user) => {
       if (err) {
         throw err
       }
-      // no user, show error
       if (!user) {
         res.send({ message: 'Authentication failed. User not found.' })
       }
       else {
-        // user found, check password if valid
         user.validPassword(req.body.password, (err, isValid) => {
           if (isValid && !err) {
-            // both condition true, generate token and respond with token
             const token = jwt.sign({ data: user }, process.env.SECRET_KEY, { expiresIn: '2 days' })
             res.json({ message: 'Authentication successful.', id: user.id, token })
           }
@@ -37,16 +36,15 @@ module.exports = {
   },
 
   /**
-   * reset the user password, use token as temporary password, send email to user
+   * Resets a user's password and sends the user a password reset email
+   * @property {string} req.body.email user's email
+   * @return {boolean} success - true if password reset is successful, false otherwise
    */ 
   resetPassword: (req, res) => {
-    // find the user using the email from the method body
     User.findOne({ email: req.body.email }, (err, user) => {
-      // if error, send error message
       if (err) {
-        res.send(err)
+        res.send({ message: err, success: false })
       }
-      //get the token and assign as user password, authentication using environment variable
       const token = randToken.uid(8)
       user.password = token
       const options = {
@@ -54,7 +52,7 @@ module.exports = {
           api_key: process.env.SENDGRID_API_KEY
         }
       }
-      // send the temporary password to the user using the smtpTransport
+
       const smtpTransport = nodemailer.createTransport(sgTransport(options))
       const mailOptions = {
         to: user.email,
@@ -65,14 +63,13 @@ module.exports = {
           `Your new password is ${token}. Please login and change your password.\n\n` +
           'Regards,\n\nCareer Website Team'
       }
-      // check if the message succesfully send
+
       smtpTransport.sendMail(mailOptions, (err) => {
         user.save((err) => {
-          // if error, send error message
           if (err) {
-            res.send(err)
+            res.send({ message: err, success: false })
           }
-          res.json({ message: 'Password has been reset' })
+          res.json({ message: 'Password has been reset', success: true })
         })
       })
     })
