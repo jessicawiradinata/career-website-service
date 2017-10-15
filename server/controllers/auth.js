@@ -79,10 +79,13 @@ module.exports = {
   },
 
   /**
-   * chenge the user password
+   * Changes a user's password
+   * @property {string} req.body.email user's email
+   * @property {string} req.body.password user's password
+   * @property {string} req.body.newPassword user's new password
+   * @property {string} req.headers.token user's jwt token
    */
   changePassword: (req, res) => {
-    // find the user
     User.findOne({ email: req.body.email }, (err, user) => {
       if (err) {
         res.send(err)
@@ -90,20 +93,26 @@ module.exports = {
       if (!user) {
         res.send({ message: 'User not found' })
       } else {
-        //check the password, if valid change the password
-        user.validPassword(req.body.password, (err, isValid) => {
-          if (isValid && !err) {
-            user.password = req.body.newPassword
-            user.save((err) => {
-              if (err) {
-                res.send(err)
+        jwt.verify(req.headers.token, process.env.SECRET_KEY, (err, decoded) => {
+          if (err) {
+            res.send({ message: err, validToken: false })
+          } else {
+            user.validPassword(req.body.password, (err, isValid) => {
+              if (isValid && !err) {
+                user.password = req.body.newPassword
+                user.save((err) => {
+                  if (err) {
+                    res.send(err)
+                  }
+                  res.json({ message: 'Password successfully changed!', success: true })
+                })
               }
-              res.json({ message: 'Password successfully changed!' })
+              else {
+                res.json({ message: 'Invalid current password', success: false })
+              }
             })
           }
-          else {
-            res.json(err)
-          }
+          
         })
       }
     })
