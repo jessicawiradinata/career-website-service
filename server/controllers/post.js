@@ -3,11 +3,11 @@ import request from 'request'
 import jwt from 'jsonwebtoken'
 
 /**
- * Collection of methods for Job Post that will be called when 
- * the API method related to post is used
+ * A collection of server methods for to handle posts
  */
 
 module.exports = {
+
   /**
    * Creates a new post by a user
    * @property {string} req.body.title post title
@@ -88,17 +88,24 @@ module.exports = {
   },
 
   /**
-   * update one particular post, specified with the postId in the API method parameter,
-   * will be called when Update Job Post API method is called
-   * @param postId the id of the post to be updated
+   * Updates a user's post
+   * @param postId the ID of the post to be updated
+   * @property {string} req.body.title post title
+   * @property {string} req.body.remuneration internship's pay rate
+   * @property {string} req.body.location internship location
+   * @property {string} req.body.workType work contract type
+   * @property {string} req.body.closingDate internship application closing date
+   * @property {string[]} req.body.skills skills required for the internship
+   * @property {string} req.body.howToApply how to apply to the job post
+   * @return {boolean} validToken - false if user's token is not valid, null otherwise
+   * @return {boolean} success - true if user's post is successfully updated, false otherwise
    */
   updatePost: (req, res) => {
-    // finding the post that want to be updated
     Post.findById({ _id: req.params.postId }, (err, post) => {
       if (err) {
         res.send(err)
       }
-      // get the all required value for the method body
+
       post.title = req.body.title,
       post.remuneration = req.body.remuneration,
       post.location = req.body.location,
@@ -107,12 +114,18 @@ module.exports = {
       post.description = req.body.description,
       post.skills = req.body.skills,
       post.howToApply = req.body.howToApply
-      // save into the database
-      post.save((err) => {
+
+      jwt.verify(req.headers.token, process.env.SECRET_KEY, (err, decode) => {
         if (err) {
-          res.send(err)
+          res.send({ message: err, validToken: false })
+        } else {
+          post.save((err) => {
+            if (err) {
+              res.send({ message: err, success: false })
+            }
+            res.json({ message: 'Post updated!', success: true })
+          })
         }
-        res.json({ message: 'Post updated!' })
       })
     })
   },
