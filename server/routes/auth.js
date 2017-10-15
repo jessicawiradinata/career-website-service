@@ -11,7 +11,7 @@ import validate from 'express-validation'
 const router = express.Router()
 // if api/auth/login
 router.route('/login')
-//use post method and call login method in the auth.js controller
+// use post method and call login method in the auth.js controller
 .post(validate(validation.login), login)
 
 
