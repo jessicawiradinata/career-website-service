@@ -12,12 +12,15 @@ import dotenv from 'dotenv'
 // read .env file, parse the contents, assign it to process.env
 dotenv.config()
 const app = express()
+const corsOptions = {
+  origin: ['http://localhost:3000', 'http://ec2-18-220-149-76.us-east-2.compute.amazonaws.com:3000']
+}
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
-app.use(cors())
+app.use(cors(corsOptions))
 // specifying the port
 const port = process.env.PORT || 8080
 
