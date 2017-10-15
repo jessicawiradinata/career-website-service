@@ -1,5 +1,6 @@
 import Post from '../models/post'
 import request from 'request'
+import jwt from 'jsonwebtoken'
 
 /**
  * Collection of methods for Job Post that will be called when 
@@ -8,12 +9,20 @@ import request from 'request'
 
 module.exports = {
   /**
-   * create a new post, will be called when Post Job Post API method is called
+   * Creates a new post by a user
+   * @property {string} req.body.title post title
+   * @property {string} req.body.authorId author's user ID
+   * @property {string} req.body.remuneration internship's pay rate
+   * @property {string} req.body.location internship location
+   * @property {string} req.body.workType work contract type
+   * @property {string} req.body.closingDate internship application closing date
+   * @property {string[]} req.body.skills skills required for the internship
+   * @property {string} req.body.howToApply how to apply to the job post
+   * @return {boolean} validToken - false if user's token is not valid, null otherwise
+   * @return {boolean} success - true if user's post is successfully created, false otherwise
    */
   createPost: (req, res) => {
-    // create the new post with the data from the message body
     const post = new Post({
-      //get the message body
       title: req.body.title,
       authorId: req.body.authorId,
       remuneration: req.body.remuneration,
@@ -24,12 +33,17 @@ module.exports = {
       skills: req.body.skills,
       howToApply: req.body.howToApply
     })
-    // save the user into the database
-    post.save((err) => {
+    jwt.verify(req.headers.token, process.env.SECRET_KEY, (err, decode) => {
       if (err) {
-        res.send(err)
+        res.send({ message: err, validToken: false })
+      } else {
+        post.save((err) => {
+          if (err) {
+            res.send({ message: err, success: false })
+          }
+          res.json({ message: 'Post created!', success: true })
+        })
       }
-      res.json({ message: 'Post created!' })
     })
   },
 

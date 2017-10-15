@@ -84,6 +84,8 @@ module.exports = {
    * @property {string} req.body.password user's password
    * @property {string} req.body.newPassword user's new password
    * @property {string} req.headers.token user's jwt token
+   * @return {boolean} validtoken - false if user's token is not valid, null otherwise
+   * @return {boolean} success - true if password is successfully changed, false otherwise
    */
   changePassword: (req, res) => {
     User.findOne({ email: req.body.email }, (err, user) => {
