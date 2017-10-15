@@ -10,6 +10,7 @@ module.exports = {
 
   /**
    * Creates a new post by a user
+   * @property {string} req.headers.token user's jwt token
    * @property {string} req.body.title post title
    * @property {string} req.body.authorId author's user ID
    * @property {string} req.body.remuneration internship's pay rate
@@ -89,7 +90,8 @@ module.exports = {
 
   /**
    * Updates a user's post
-   * @param postId the ID of the post to be updated
+   * @param postId ID of the post to be updated
+   * @property {string} req.headers.token user's jwt token
    * @property {string} req.body.title post title
    * @property {string} req.body.remuneration internship's pay rate
    * @property {string} req.body.location internship location
@@ -131,17 +133,24 @@ module.exports = {
   },
 
   /**
-   * delete one particular post, specified with the postId in the API method parameter,
-   * will be called when Detele Job Post API method is called
-   * @param postId of the post to be deleted
+   * Deletes a user's post
+   * @param postId ID of the post to be deleted
+   * @property {string} req.headers.token user's jwt token
+   * @return {boolean} validToken - false if user's token is not valid, null otherwise
+   * @return {boolean} success - true if user's post is successfully deleted, false otherwise
    */
   deletePost: (req, res) => {
-    // find the post that want to be deleted
-    Post.remove({ _id: req.params.postId }, (err, post) => {
+    jwt.verify(req.headers.token, process.env.SECRET_KEY, (err, decode) => {
       if (err) {
-        res.send(err)
+        res.send({ message: err, validToken: false })
+      } else {
+        Post.remove({ _id: req.params.postId }, (err, post) => {
+          if (err) {
+            res.send({ message: err, success: false })
+          }
+          res.json({ message: 'Successfully deleted', success: true })
+        })
       }
-      res.json({ message: 'Successfully deleted' })
     })
   },
 
