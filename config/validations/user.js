@@ -35,7 +35,7 @@ export default {
     body: {
       email: Joi.string().email().required(),
       password: Joi.string().required(),
-      name: Joi.string().alphanum(),
+      name: Joi.string().required(),
     }
   },
 
@@ -45,7 +45,7 @@ export default {
   updateUserName: {
     body: {
       //validation for the updateUserName method body
-      name: Joi.string().alphanum(),
+      name: Joi.string().required(),
     }
   },
 

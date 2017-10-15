@@ -1,4 +1,5 @@
 import User from '../models/user'
+import jwt from 'jsonwebtoken'
 
 /**
  * collection of methods for User that will be called when 
@@ -93,7 +94,7 @@ module.exports = {
             if (err) {
               res.send({ message: err, success: false })
             }
-            res.json({ message: 'User name updated!', success: false })
+            res.json({ message: 'User name updated!', success: true })
           })
         }
       })
