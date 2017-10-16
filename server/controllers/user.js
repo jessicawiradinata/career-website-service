@@ -25,14 +25,15 @@ module.exports = {
         res.send(err)
       }
       if (!user) {
+        res.send({ message: 'User already exists', isExist: true })
+        
+      } else {
         user.save((err) => {
           if (err) {
             res.send({ message: err, success: false, isExist: false })
           }
           res.json({ message: 'User created!', success: true, isExist: false })
         })
-      } else {
-        res.send({ message: 'User already exists', isExist: true })
       }
     })
   },

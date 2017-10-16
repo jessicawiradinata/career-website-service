@@ -46,7 +46,9 @@ module.exports = {
         res.send({ message: err, success: false })
       }
       
-      if (user !== null) {
+      if (!user) {
+        res.send ({ message: 'User not found', success: false })
+      } else {
         const token = randToken.uid(8)
         user.password = token
         const options = {
@@ -74,8 +76,6 @@ module.exports = {
             res.json({ message: 'Password has been reset', success: true })
           })
         })
-      } else {
-        res.send ({ message: 'User not found', success: false })
       }
       
     })
