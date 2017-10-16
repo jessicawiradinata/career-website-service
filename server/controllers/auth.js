@@ -45,33 +45,39 @@ module.exports = {
       if (err) {
         res.send({ message: err, success: false })
       }
-      const token = randToken.uid(8)
-      user.password = token
-      const options = {
-        auth: {
-          api_key: process.env.SENDGRID_API_KEY
-        }
-      }
-
-      const smtpTransport = nodemailer.createTransport(sgTransport(options))
-      const mailOptions = {
-        to: user.email,
-        from: 'noreply@career-website.com',
-        subject: 'Career Website Password Reset',
-        text: `Hi ${user.name},\n\n` +
-          "You are receiving this email because you or someone else have requested to reset your account's password." +
-          `Your new password is ${token}. Please login and change your password.\n\n` +
-          'Regards,\n\nCareer Website Team'
-      }
-
-      smtpTransport.sendMail(mailOptions, (err) => {
-        user.save((err) => {
-          if (err) {
-            res.send({ message: err, success: false })
+      
+      if (user !== null) {
+        const token = randToken.uid(8)
+        user.password = token
+        const options = {
+          auth: {
+            api_key: process.env.SENDGRID_API_KEY
           }
-          res.json({ message: 'Password has been reset', success: true })
+        }
+  
+        const smtpTransport = nodemailer.createTransport(sgTransport(options))
+        const mailOptions = {
+          to: user.email,
+          from: 'noreply@career-website.com',
+          subject: 'Career Website Password Reset',
+          text: `Hi ${user.name},\n\n` +
+            "You are receiving this email because you or someone else have requested to reset your account's password." +
+            `Your new password is ${token}. Please login and change your password.\n\n` +
+            'Regards,\n\nCareer Website Team'
+        }
+  
+        smtpTransport.sendMail(mailOptions, (err) => {
+          user.save((err) => {
+            if (err) {
+              res.send({ message: err, success: false })
+            }
+            res.json({ message: 'Password has been reset', success: true })
+          })
         })
-      })
+      } else {
+        res.send ({ message: 'User not found', success: false })
+      }
+      
     })
   },
 
