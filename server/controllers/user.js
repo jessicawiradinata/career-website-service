@@ -15,25 +15,24 @@ module.exports = {
    * @return {boolean} isExist - true if user with the specified email already exists
    */
   createUser: (req, res) => {
-    const user = new User({
+    const newUser = new User({
       email: req.body.email,
       password: req.body.password,
       name: req.body.name
     })
-    User.findById({ _id: req.params.userId }, (err, user) => {
+    User.findOne({ email: req.body.email }, (err, user) => {
       if (err) {
         res.send(err)
       }
       if (!user) {
-        res.send({ message: 'User already exists', isExist: true })
-        
-      } else {
-        user.save((err) => {
+        newUser.save((err) => {
           if (err) {
             res.send({ message: err, success: false, isExist: false })
           }
           res.json({ message: 'User created!', success: true, isExist: false })
         })
+      } else {
+        res.send({ message: 'User already exists', isExist: true })
       }
     })
   },
