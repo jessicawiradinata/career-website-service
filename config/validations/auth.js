@@ -7,7 +7,7 @@ export default {
   login: {
     body: {
       email: Joi.string().email().required(),
-      password: Joi.string().required()
+      password: Joi.string().min(6).max(30).regex(/[a-zA-Z0-9]{6,30}/).required(),
     }
   },
 
@@ -20,7 +20,7 @@ export default {
   changePassword:{
     body:{
       email: Joi.string().email().required(),
-      password: Joi.string().required()
+      password: Joi.string().min(6).max(30).regex(/[a-zA-Z0-9]{6,30}/).required(),
     }
   }
 }
